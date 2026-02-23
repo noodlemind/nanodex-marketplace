@@ -1,10 +1,9 @@
 ---
 name: ux-review
 description: >
-  Performs UI/UX reviews guided by 10 world-class design experts.
-  Spawns parallel sub-agents embodying Dieter Rams, Jony Ive, Don Norman,
-  Jakob Nielsen, Luke Wroblewski, Steve Krug, Irene Au, Jesse James Garrett,
-  Erika Hall, and Yael Levey. Findings are synthesized and deduplicated.
+  UI/UX review panel with 10 design experts (Rams, Ive, Norman, Nielsen,
+  Wroblewski, Krug, Au, Garrett, Hall, Levey). Spawns parallel sub-agents,
+  synthesizes and deduplicates findings.
   Use when asked to "review UX", "UX audit", "design review", "polish the UI",
   or "streamline the interface".
 argument-hint: "[optional: page, component, or scope to review]"

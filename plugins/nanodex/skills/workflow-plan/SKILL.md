@@ -3,10 +3,11 @@ name: workflow-plan
 description: >
   Creates structured implementation plans from feature descriptions.
   Reads the codebase, identifies patterns and conventions, and produces
-  a detailed plan document in docs/plans/. Use when planning new features,
-  changes, or improvements before implementation.
+  a detailed plan document in docs/plans/.
+  Use when asked to "plan a feature", "create a plan", "write a spec",
+  or "plan implementation".
 argument-hint: "[feature description or topic]"
-allowed-tools: Read, Glob, Grep, Bash, Task, Write
+allowed-tools: Read, Glob, Grep, Task, Bash, Write
 ---
 
 # Structured Planning Workflow

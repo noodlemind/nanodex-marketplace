@@ -8,7 +8,8 @@ description: >
   Use when asked to "review code", "code review", "check code quality",
   or "audit the code".
 argument-hint: "[optional: file paths, PR number, or scope]"
-allowed-tools: Read, Glob, Grep, Task, Bash
+disable-model-invocation: true
+allowed-tools: Read, Glob, Grep, Task, Bash, Edit, Write
 ---
 
 # Code Review — Multi-Agent Panel

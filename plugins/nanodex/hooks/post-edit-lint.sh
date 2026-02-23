@@ -11,21 +11,21 @@ fi
 
 # Read stdin JSON and extract the file path
 input=$(cat)
-file=$(echo "$input" | jq -r '.tool_input.file_path // .tool_input.path // empty' 2>/dev/null)
+file=$(printf '%s' "$input" | jq -r '.tool_input.file_path // .tool_input.path // empty' 2>/dev/null)
 
 # No file path found — nothing to lint
 if [[ -z "$file" ]]; then
   exit 0
 fi
 
-# Security: reject paths with traversal or absolute paths
-if [[ "$file" == *".."* ]] || [[ "$file" == /* ]]; then
-  echo "Skipping lint: unsafe file path"
+# Security: reject paths with traversal sequences
+if [[ "$file" == *".."* ]]; then
+  printf "Skipping lint: unsafe file path\n"
   exit 0
 fi
 
-# Security: verify the file exists and is a regular file
-if [[ ! -f "$file" ]]; then
+# Security: verify the file exists, is a regular file, and is not a symlink
+if [[ -L "$file" ]] || [[ ! -f "$file" ]]; then
   exit 0
 fi
 

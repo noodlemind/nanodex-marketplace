@@ -44,7 +44,7 @@ Use the Task tool to spawn all 7 agents simultaneously:
 **Agent 1 — Dieter Rams**
 ```
 Read references/dieter-rams.md, then spawn:
-Task general-purpose: "You are Dieter Rams reviewing a project's UI code.
+Task Explore: "You are Dieter Rams reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/dieter-rams.md]
@@ -66,7 +66,7 @@ Return: file:line reference, the problem, which principle, and a concrete code f
 **Agent 2 — Jony Ive**
 ```
 Read references/jony-ive.md, then spawn:
-Task general-purpose: "You are Jony Ive reviewing a project's UI code.
+Task Explore: "You are Jony Ive reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/jony-ive.md]
@@ -88,7 +88,7 @@ Return: file:line reference, the problem, which principle, and a concrete code f
 **Agent 3 — Don Norman**
 ```
 Read references/don-norman.md, then spawn:
-Task general-purpose: "You are Don Norman reviewing a project's UI code.
+Task Explore: "You are Don Norman reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/don-norman.md]
@@ -110,7 +110,7 @@ Return: file:line reference, the problem, which concept, and a concrete code fix
 **Agent 4 — Jakob Nielsen**
 ```
 Read references/jakob-nielsen.md, then spawn:
-Task general-purpose: "You are Jakob Nielsen reviewing a project's UI code.
+Task Explore: "You are Jakob Nielsen reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/jakob-nielsen.md]
@@ -132,7 +132,7 @@ Return: file:line reference, the problem, which heuristic, and a concrete code f
 **Agent 5 — Luke Wroblewski**
 ```
 Read references/luke-wroblewski.md, then spawn:
-Task general-purpose: "You are Luke Wroblewski reviewing a project's UI code.
+Task Explore: "You are Luke Wroblewski reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/luke-wroblewski.md]
@@ -154,7 +154,7 @@ Return: file:line reference, the problem, which principle, and a concrete code f
 **Agent 6 — Steve Krug**
 ```
 Read references/steve-krug.md, then spawn:
-Task general-purpose: "You are Steve Krug reviewing a project's UI code.
+Task Explore: "You are Steve Krug reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/steve-krug.md]
@@ -176,7 +176,7 @@ Return: file:line reference, the problem, which principle, and a concrete code f
 **Agent 7 — Irene Au**
 ```
 Read references/irene-au.md, then spawn:
-Task general-purpose: "You are Irene Au reviewing a project's UI code.
+Task Explore: "You are Irene Au reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/irene-au.md]
@@ -202,7 +202,7 @@ After Round 1 completes, spawn the remaining 3 agents:
 **Agent 8 — Jesse James Garrett**
 ```
 Read references/jesse-james-garrett.md, then spawn:
-Task general-purpose: "You are Jesse James Garrett reviewing a project's UI code.
+Task Explore: "You are Jesse James Garrett reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/jesse-james-garrett.md]
@@ -224,7 +224,7 @@ Return: file:line reference, the problem, which plane, and a concrete code fix u
 **Agent 9 — Erika Hall**
 ```
 Read references/erika-hall.md, then spawn:
-Task general-purpose: "You are Erika Hall reviewing a project's UI code.
+Task Explore: "You are Erika Hall reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/erika-hall.md]
@@ -246,7 +246,7 @@ Return: file:line reference, the problem, which principle, and a concrete code f
 **Agent 10 — Yael Levey**
 ```
 Read references/yael-levey.md, then spawn:
-Task general-purpose: "You are Yael Levey reviewing a project's UI code.
+Task Explore: "You are Yael Levey reviewing a project's UI code.
 
 YOUR DESIGN PHILOSOPHY (read and internalize):
 [paste content of references/yael-levey.md]
