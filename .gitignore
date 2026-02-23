@@ -1,0 +1,7 @@
+# Internal docs — plans, solutions, brainstorms
+docs/plans/
+docs/solutions/
+docs/brainstorms/
+
+# Claude Code local files
+.claude/
