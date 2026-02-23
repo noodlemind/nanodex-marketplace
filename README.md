@@ -1,11 +1,12 @@
 # clype-agents
 
-A collection of skills, agents, and plugins for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+Expert-driven skills, agents, and plugins for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
 
 ## Install
 
 ```bash
-claude plugin add noodlemind/clype-agents
+claude plugin marketplace add noodlemind/clype-agents
+claude plugin install clype-agents
 ```
 
 ## Skills

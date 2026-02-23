@@ -1,0 +1,28 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "clype-agents",
+  "description": "Skills, agents, and plugins for Claude Code by clype.io",
+  "owner": {
+    "name": "noodlemind",
+    "url": "https://github.com/noodlemind"
+  },
+  "metadata": {
+    "description": "Expert-driven skills, agents, and plugins for Claude Code. Each skill embodies world-class practitioners who review, audit, and improve your code through parallel sub-agents.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "clype-agents",
+      "description": "A collection of expert-driven skills for Claude Code — starting with a 10-expert UI/UX review panel",
+      "version": "1.0.0",
+      "author": {
+        "name": "noodlemind",
+        "url": "https://github.com/noodlemind"
+      },
+      "homepage": "https://github.com/noodlemind/clype-agents",
+      "source": "./plugins/clype-agents",
+      "category": "development",
+      "tags": ["ux", "design", "review", "agents", "skills"]
+    }
+  ]
+}
