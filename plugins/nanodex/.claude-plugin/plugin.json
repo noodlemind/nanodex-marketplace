@@ -6,8 +6,8 @@
     "name": "noodlemind",
     "url": "https://github.com/noodlemind"
   },
-  "homepage": "https://github.com/noodlemind/clype-agents",
-  "repository": "https://github.com/noodlemind/clype-agents",
+  "homepage": "https://github.com/noodlemind/nanodex-marketplace",
+  "repository": "https://github.com/noodlemind/nanodex-marketplace",
   "license": "MIT",
   "keywords": ["ux", "design", "review", "agents", "skills", "code-review", "security", "performance", "architecture", "workflow", "planning"]
 }

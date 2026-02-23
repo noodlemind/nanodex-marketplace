@@ -19,7 +19,7 @@
         "name": "noodlemind",
         "url": "https://github.com/noodlemind"
       },
-      "homepage": "https://github.com/noodlemind/clype-agents",
+      "homepage": "https://github.com/noodlemind/nanodex-marketplace",
       "source": "./plugins/nanodex",
       "category": "development",
       "tags": ["ux", "design", "review", "agents", "skills", "code-review", "security", "performance", "architecture", "workflow", "planning"]
