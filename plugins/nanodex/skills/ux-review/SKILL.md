@@ -1,6 +1,15 @@
 ---
 name: ux-review
-description: This skill should be used to perform UI/UX reviews guided by 10 world-class design experts. It spawns one sub-agent per expert — Dieter Rams, Jony Ive, Don Norman, Jakob Nielsen, Luke Wroblewski, Steve Krug, Irene Au, Jesse James Garrett, Erika Hall, and Yael Levey — who each independently review the codebase through their design philosophy. Findings are synthesized, deduplicated, and presented for selective fixing. Preserves the existing visual theme. Triggers on "review UX", "UX audit", "design review", "polish the UI", or "streamline the interface".
+description: >
+  Performs UI/UX reviews guided by 10 world-class design experts.
+  Spawns parallel sub-agents embodying Dieter Rams, Jony Ive, Don Norman,
+  Jakob Nielsen, Luke Wroblewski, Steve Krug, Irene Au, Jesse James Garrett,
+  Erika Hall, and Yael Levey. Findings are synthesized and deduplicated.
+  Use when asked to "review UX", "UX audit", "design review", "polish the UI",
+  or "streamline the interface".
+argument-hint: "[optional: page, component, or scope to review]"
+disable-model-invocation: true
+allowed-tools: Read, Glob, Grep, Task, Bash, Edit, Write
 ---
 
 # UX Review — 10-Expert Panel
@@ -18,202 +27,50 @@ Perform a comprehensive UI/UX review by spawning 10 parallel sub-agents, each em
 
 ## Workflow
 
-### Step 1: Capture Current State
+Read `references/workflow.md` for the full detailed workflow. Below is a summary of each step.
 
-1. Start the dev server if not running: `pnpm dev`
-2. Read all page and component files to build a complete picture of the UI surface:
-   - `app/layout.tsx` — root layout, spacing, max-width
-   - `app/global.css` — base styles, prose, dark mode
-   - `app/components/*.tsx` — all shared components
-   - `app/page.tsx` — home page
-   - `app/blog/page.tsx` — blog index
-   - `app/blog/[slug]/page.tsx` — blog post detail
-   - `app/contact/page.tsx` — contact page
-   - `app/projects/page.tsx` — projects page
-   - `app/tools/page.tsx` — tools page
-   - `app/podcast/page.tsx` — podcast page
-3. If the user specified a scope (e.g., "blog post page"), narrow the review to those files only
-4. Store the full content of all relevant files — this will be passed to each expert agent
+### Step 1: Determine Scope
 
-### Step 2: Launch 10 Expert Sub-Agents in Parallel
+**Scope-first architecture** — minimize token cost by reviewing only what matters.
 
-Read each expert's reference file from `references/` before spawning their agent. Pass the full UI code to each agent so they can review independently.
+1. If the user specified a scope (e.g., "review the blog page"), use only those files
+2. If `$ARGUMENTS` provides a scope, use that
+3. Otherwise, check for recently changed files: run `git diff --name-only HEAD~5` to find UI files modified recently
+4. If no changes found, ask the user which pages or components to review
+5. Never scan the entire codebase by default
 
-Spawn all 10 agents in parallel using the Task tool:
+### Step 2: Identify UI Files
 
-**Agent 1 — Dieter Rams**
-```
-Read references/dieter-rams.md, then spawn:
-Task general-purpose: "You are Dieter Rams reviewing a website's UI code.
+Identify the project's UI framework and file conventions by reading the project structure. Use simple file globbing to find relevant files:
 
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/dieter-rams.md]
+- Look for common patterns: `*.tsx`, `*.jsx`, `*.vue`, `*.svelte`, `*.erb`, `*.html`, `*.css`
+- Read the project's package.json, Gemfile, or equivalent to understand the tech stack
+- Read all UI source files within the determined scope
+- Store the full content — this will be passed to each expert agent
 
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
+### Step 3: Launch Expert Sub-Agents
 
-Review the following UI code and apply every item from your UI Review Checklist.
-For each finding, state which of your 10 Principles it violates.
-Return: file:line reference, the problem, which principle, and a concrete Tailwind/code fix.
+Read `references/workflow.md` for the complete agent prompts and spawn instructions.
 
-[paste all UI code]"
-```
+**Round 1** — Spawn 7 agents in parallel using the Task tool:
+1. Dieter Rams (references/dieter-rams.md)
+2. Jony Ive (references/jony-ive.md)
+3. Don Norman (references/don-norman.md)
+4. Jakob Nielsen (references/jakob-nielsen.md)
+5. Luke Wroblewski (references/luke-wroblewski.md)
+6. Steve Krug (references/steve-krug.md)
+7. Irene Au (references/irene-au.md)
 
-**Agent 2 — Jony Ive**
-```
-Read references/jony-ive.md, then spawn:
-Task general-purpose: "You are Jony Ive reviewing a website's UI code.
+**Round 2** — After Round 1 completes, spawn 3 more agents in parallel:
+8. Jesse James Garrett (references/jesse-james-garrett.md)
+9. Erika Hall (references/erika-hall.md)
+10. Yael Levey (references/yael-levey.md)
 
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/jony-ive.md]
+**Partial failure handling:** Proceed with synthesis if at least 5 of 10 experts complete successfully. Note any failed experts in the final report.
 
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
+### Step 4: Synthesize Findings
 
-Review the following UI code. For each element, ask: can this be removed without reducing functionality? Does every pixel feel intentional?
-For each finding, state which of your principles it violates.
-Return: file:line reference, the problem, which principle, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-**Agent 3 — Don Norman**
-```
-Read references/don-norman.md, then spawn:
-Task general-purpose: "You are Don Norman reviewing a website's UI code.
-
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/don-norman.md]
-
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
-
-Review the following UI code for affordances, signifiers, feedback, conceptual models, mapping, constraints, and discoverability.
-For each finding, state which concept it violates.
-Return: file:line reference, the problem, which concept, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-**Agent 4 — Jakob Nielsen**
-```
-Read references/jakob-nielsen.md, then spawn:
-Task general-purpose: "You are Jakob Nielsen reviewing a website's UI code.
-
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/jakob-nielsen.md]
-
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
-
-Review the following UI code against all 10 Usability Heuristics.
-For each finding, state which heuristic it violates (by number and name).
-Return: file:line reference, the problem, which heuristic, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-**Agent 5 — Luke Wroblewski**
-```
-Read references/luke-wroblewski.md, then spawn:
-Task general-purpose: "You are Luke Wroblewski reviewing a website's UI code.
-
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/luke-wroblewski.md]
-
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
-
-Review the following UI code with mobile-first thinking. Evaluate at 360px, 768px, and 1024px+ breakpoints.
-For each finding, state which principle it violates.
-Return: file:line reference, the problem, which principle, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-**Agent 6 — Steve Krug**
-```
-Read references/steve-krug.md, then spawn:
-Task general-purpose: "You are Steve Krug reviewing a website's UI code.
-
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/steve-krug.md]
-
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
-
-Review the following UI code. Apply the Trunk Test to every page. Identify every moment a user would have to think.
-For each finding, state which principle it violates.
-Return: file:line reference, the problem, which principle, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-**Agent 7 — Irene Au**
-```
-Read references/irene-au.md, then spawn:
-Task general-purpose: "You are Irene Au reviewing a website's UI code.
-
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/irene-au.md]
-
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
-
-Review the following UI code for type scale coherence, spacing system consistency, and design system patterns.
-For each finding, state which principle it violates.
-Return: file:line reference, the problem, which principle, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-**Agent 8 — Jesse James Garrett**
-```
-Read references/jesse-james-garrett.md, then spawn:
-Task general-purpose: "You are Jesse James Garrett reviewing a website's UI code.
-
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/jesse-james-garrett.md]
-
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
-
-Review the following UI code through the Five Planes: strategy, scope, structure, skeleton, surface. Identify where lower planes fail to support upper planes.
-For each finding, state which plane it affects.
-Return: file:line reference, the problem, which plane, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-**Agent 9 — Erika Hall**
-```
-Read references/erika-hall.md, then spawn:
-Task general-purpose: "You are Erika Hall reviewing a website's UI code.
-
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/erika-hall.md]
-
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
-
-Review the following UI code. Challenge every element: does it serve a real user need or is it design theater? What happens with empty states and edge cases?
-For each finding, state which principle it violates.
-Return: file:line reference, the problem, which principle, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-**Agent 10 — Yael Levey**
-```
-Read references/yael-levey.md, then spawn:
-Task general-purpose: "You are Yael Levey reviewing a website's UI code.
-
-YOUR DESIGN PHILOSOPHY (read and internalize):
-[paste content of references/yael-levey.md]
-
-CONSTRAINT: Do not suggest changing the color palette, fonts, or visual identity.
-
-Review the following UI code for accessibility, inclusivity, and empathy. Test for: color contrast (WCAG AA), keyboard navigation, screen reader support, touch targets, and real-world conditions.
-For each finding, state which principle it violates.
-Return: file:line reference, the problem, which principle, and a concrete Tailwind/code fix.
-
-[paste all UI code]"
-```
-
-### Step 3: Synthesize Findings
-
-After all 10 expert agents complete:
+After all expert agents complete:
 
 1. Collect all findings from every expert
 2. Deduplicate — findings raised by multiple experts carry more weight
@@ -224,7 +81,7 @@ After all 10 expert agents complete:
    - **Low** — Minor refinement (single expert, edge case, or nice-to-have)
 5. Sort within each category by effort (quick wins first)
 
-### Step 4: Present Report
+### Step 5: Present Report
 
 ```markdown
 ## UX Review — Expert Panel Findings
@@ -243,20 +100,25 @@ After all 10 expert agents complete:
 
 ### Expert Consensus
 [Note any themes that 5+ experts independently raised — these are the most important findings]
+
+### Experts Completed
+[List which experts completed successfully and which failed, if any]
 ```
 
-### Step 5: Ask What to Fix
+### Step 6: Ask What to Fix
 
-Use AskUserQuestion:
-- "Which findings should I fix?"
+If running interactively (no `$ARGUMENTS` specifying fix scope):
+- Use AskUserQuestion: "Which findings should I fix?"
 - Options: "All high impact", "All high + medium", "Everything", "Let me pick specific ones"
 
-### Step 6: Apply Fixes
+If `$ARGUMENTS` specifies a fix scope (e.g., "fix all high impact"), proceed automatically.
+
+### Step 7: Apply Fixes
 
 For selected findings:
-1. Make changes following existing code patterns
-2. Verify `pnpm build` passes after each batch
-3. Test in dev server
+1. Make changes following existing code patterns and the project's framework conventions
+2. Verify the project builds after each batch of fixes
+3. Test in dev server if available
 4. Commit changes when complete
 
 ## Success Criteria
@@ -264,5 +126,5 @@ For selected findings:
 - All fixes work in both light and dark mode
 - Responsive at 360px, 768px, 1024px+
 - No visual theme or color palette changes
-- `pnpm build` passes
-- `pnpm lint` passes
+- Project builds successfully
+- Linting passes
