@@ -29,6 +29,15 @@ if [[ -L "$file" ]] || [[ ! -f "$file" ]]; then
   exit 0
 fi
 
+# Security: canonicalize path and verify it stays within the working directory
+if command -v realpath &>/dev/null; then
+  resolved=$(realpath "$file" 2>/dev/null) || exit 0
+  cwd=$(pwd)
+  if [[ "$resolved" != "$cwd"/* ]]; then
+    exit 0
+  fi
+fi
+
 # Detect and run the appropriate linter
 if [[ -f "eslint.config.js" ]] || [[ -f "eslint.config.mjs" ]] || [[ -f "eslint.config.cjs" ]] || [[ -f ".eslintrc.js" ]] || [[ -f ".eslintrc.json" ]] || [[ -f ".eslintrc.yml" ]] || [[ -f ".eslintrc.yaml" ]]; then
   # ESLint — only lint JS/TS files
