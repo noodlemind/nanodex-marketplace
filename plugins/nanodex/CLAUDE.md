@@ -10,6 +10,9 @@ plugins/nanodex/
     ux-review/                  # 10-expert UX review panel
     code-review/                # 3-agent code quality review
     workflow-plan/              # Structured planning workflow
+    brand-identity/             # 5-expert brand identity panel
+    design-system/              # 6-expert design system panel
+    figma-design-ops/           # 3-specialist Figma design ops
   agents/                       # Subagent definitions (.md files)
     review/                     # Review-focused agents
   hooks/                        # Lifecycle hooks
@@ -52,3 +55,7 @@ plugins/nanodex/
 - **Plugin name (`nanodex-plugin`) differs from directory name (`nanodex`)** — avoids EXDEV bug
 - **Keep skill descriptions under 300 chars** — they share a 2% context budget (~16,000 chars)
 - **Skills must support both interactive and non-interactive modes** — check for `$ARGUMENTS`
+- **Generative skills use behavioral anchors** — not sentinel markers — for prompt injection protection
+- **Sub-agents get Read/Glob/Grep only** — orchestrator SKILL.md controls all writes
+- **Output directories include manifest.json** — machine-readable metadata for pipeline chaining
+- **Design pipeline order:** brand-identity → design-system → figma-design-ops (each reads prior output via manifest.json)

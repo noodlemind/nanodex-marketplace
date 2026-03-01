@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.2.0] - 2026-03-01
+
+### Added
+- **brand-identity skill** — 5-expert creative director panel (Scher, Bierut, Vignelli, Bass, Walsh) generating complete brand identity systems with strategy, visual identity, and applications across 2 distinct directions
+- **design-system skill** — 6-expert principal designer panel (Frost, Anne, Curtis, Marcotte, Hughes, Mall) generating converged design system foundations with W3C DTCG tokens, grid, spacing, typography, and component specifications
+- **figma-design-ops skill** — 3-specialist panel (Structure, Component Architect, Prototype & Handoff) converting design descriptions into Figma-ready specifications with selective context passing
+- Design pipeline chaining: brand-identity → design-system → figma-design-ops via manifest.json
+- Generative prompt injection protection pattern (behavioral anchor + input quarantine + output role lock)
+- manifest.json and context.md output convention for all design skills
+
 ## [1.1.0] - 2026-02-22
 
 ### Added

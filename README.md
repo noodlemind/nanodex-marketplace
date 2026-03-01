@@ -38,6 +38,50 @@ A multi-agent code review panel with security, performance, and architecture rev
 - Checks plan compliance if a plan document exists in `docs/plans/`
 - Synthesizes findings into a prioritized report with concrete fixes
 
+### `/nanodex:brand-identity`
+
+A 5-expert creative director panel that generates complete brand identity systems.
+
+**Experts:** Paula Scher, Michael Bierut, Massimo Vignelli, Saul Bass, Jessica Walsh.
+
+**Triggers:** "brand identity", "brand strategy", "logo direction", "build a brand"
+
+**What it does:**
+- Collects a brand brief (name, industry, audience, value proposition)
+- Spawns 5 expert agents in parallel, each generating a complete brand direction
+- Clusters outputs into 2 distinct brand directions by archetype affinity
+- Produces strategy (archetypes, voice metrics, messaging), visual identity (logo, color, typography), and applications (imagery, iconography)
+- Writes output to `docs/brand-identity/` with manifest.json for pipeline chaining
+
+### `/nanodex:design-system`
+
+A 6-expert principal designer panel that generates design system foundations.
+
+**Experts:** Brad Frost, Jina Anne, Nathan Curtis, Ethan Marcotte, Hayley Hughes, Dan Mall.
+
+**Triggers:** "design system", "design tokens", "component specs", "build foundations"
+
+**What it does:**
+- Auto-detects tech stack and consumes brand identity output when available
+- Spawns 6 expert agents in parallel, each covering a foundation area
+- Converges to a single specification through expert consensus
+- Produces W3C DTCG design tokens (primitives, semantic, component), grid/spacing/typography foundations, and component specs (button, input, card, badge, alert)
+- Writes output to `docs/design-system/` with manifest.json for pipeline chaining
+
+### `/nanodex:figma-design-ops`
+
+A 3-specialist panel that converts design descriptions into Figma-ready specifications.
+
+**Specialists:** Figma Structure, Component Architect, Prototype & Handoff.
+
+**Triggers:** "Figma specs", "Figma setup", "design ops", "dev handoff"
+
+**What it does:**
+- Consumes design system tokens and brand identity when available
+- Spawns 3 specialists in parallel with selective context (each gets only relevant data)
+- Produces file structure, component architecture (variants, auto layout, variables), prototype flows (interactions, animations), and developer handoff specs
+- Writes output to `docs/figma-specs/` with manifest.json
+
 ### `/nanodex:workflow-plan`
 
 Creates structured implementation plans from feature descriptions.

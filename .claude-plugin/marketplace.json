@@ -1,20 +1,20 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "nanodex-marketplace",
-  "description": "Expert-driven AI skills and agents for code quality, UX review, and developer workflows",
+  "description": "Expert-driven AI skills and agents for code quality, UX review, brand identity, design systems, and Figma design ops",
   "owner": {
     "name": "noodlemind",
     "url": "https://github.com/noodlemind"
   },
   "metadata": {
-    "description": "Expert-driven skills, agents, and hooks for Claude Code. Includes a 10-expert UX review panel, multi-agent code review, structured planning workflows, and automated linting hooks.",
-    "version": "1.1.0"
+    "description": "Expert-driven skills, agents, and hooks for Claude Code. Includes a 10-expert UX review panel, multi-agent code review, brand identity generation, design system foundations, Figma design ops, structured planning workflows, and automated linting hooks.",
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "nanodex-plugin",
-      "description": "Expert-driven skills and agents for code quality, UX review, and developer workflows",
-      "version": "1.1.0",
+      "description": "Expert-driven skills and agents for code quality, UX review, brand identity, design systems, and Figma design ops",
+      "version": "1.2.0",
       "author": {
         "name": "noodlemind",
         "url": "https://github.com/noodlemind"
@@ -22,7 +22,7 @@
       "homepage": "https://github.com/noodlemind/nanodex-marketplace",
       "source": "./plugins/nanodex",
       "category": "development",
-      "tags": ["ux", "design", "review", "agents", "skills", "code-review", "security", "performance", "architecture", "workflow", "planning"]
+      "tags": ["ux", "design", "review", "agents", "skills", "code-review", "security", "performance", "architecture", "workflow", "planning", "brand-identity", "design-system", "design-tokens", "figma", "design-ops"]
     }
   ]
 }
